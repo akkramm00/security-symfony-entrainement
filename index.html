@@ -56,6 +56,45 @@
        ;
    }
   </pre>
+  <h2>Solution 1</h2>
+  <br>
+  <pre>
+     public function buildForm(FormBuilderInterface $builder, array $options): void
+   {
+       $builder
+           ->add('email' EmailType::class, [
+               'label' 'E-mail'
+               ])
+           ->add('plainPassword', PasswordType::class, [
+               'mapped' => false,
+               'attr' => ['autocomplete' => 'new-password'],
+               'constraints' => [
+                   new NotBlank([
+                       'message' => 'Entrez votre mot de passe',
+                   ]),
+                   new Length([
+                       'min' => 6,
+                       'minMessage' => "Le mot de passe n’a pas {{ limit }} caractères",
+                       'max' => 4096,
+                   ]),
+               ],
+               'label' => 'Mot de passe'
+           ])
+           ->add('username', TextType::class, [
+               'label' => 'Nom'
+           ])
+            ->add('address', TextType::class, [
+               'label' => 'Adresse'
+           ])
+           ->add('codeAdress', TextType::class, [
+               'label' => 'Code postal'
+           ])
+           ->add('city', TextType::class, [
+               'label' => 'Ville'
+           ])
+       ;
+   }
+  </pre>
 
   <script src="script.js"></script>
   <script src="https://replit.com/public/js/replit-badge-v2.js" theme="dark" position="bottom-right"></script>
