@@ -99,6 +99,35 @@
   <h2>Question 2</h2>
   <br>
   <p>Maintenant, modifiez le fichier register.html.twig afin qu’il soit en adéquation avec le fichier RegistrationFormType et précisez s’il y a d’autres modifications à faire afin que la saisie du formulaire puisse être acceptée par Doctrine.</p>
+  <br>
+  <h2>response 2</h2>
+  <p>D’abord, il va falloir modifier dans l’entité user la métadonnée qui définit l’entité unique
+
+#[UniqueEntity(fields: ['username'], message: 'il y a déjà un compte avec cet identifiant')].
+
+Pour le fichier twig, vérifiez, si vous mettez des labels ou des contraintes, qu’ils ne sont pas déjà dans le fichier Form.</p>
+  <br>
+
+  <pre>
+    {% extends 'base.html.twig' %}
+
+{% Bloc title %}Register{% endBloc %}
+
+{% Bloc body %}
+   <h1>Inscription</h1>
+
+   {{ form_start(registrationForm) }}
+       {{ form_row(registrationForm.email) }}
+       {{ form_row(registrationForm.plainPassword) }}
+       {{ form_row(registrationForm.username) }}
+       {{ form_row(registrationForm.address) }}
+       {{ form_row(registrationForm.codeAdress) }}
+       {{ form_row(registrationForm.city) }}
+
+       <button type="submit" class="btn">Enregistrer</button>
+   {{ form_end(registrationForm) }}
+{% endBloc %}
+  </pre>
 
   <script src="script.js"></script>
   <script src="https://replit.com/public/js/replit-badge-v2.js" theme="dark" position="bottom-right"></script>
