@@ -22,6 +22,40 @@
   </ul>
   <h2>Question 1</h2>
   <p>Modifiez le fichier RegistrationFormType ci-dessous afin qu’il soit fonctionnel et corresponde à l’entité User avec ses nouvelles propriétés.</p>
+  <br>
+  <pre>
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+   {
+       $builder
+           ->add('email')
+           ->add('agreeTerms', CheckboxType::class, [
+               'mapped' => false,
+               'constraints' => [
+                   new IsTrue([
+                       'message' => 'You should agree to our terms.',
+                   ]),
+               ],
+           ])
+           ->add('plainPassword', PasswordType::class, [
+               // instead of being set onto the object directly,
+               // this is read and encoded in the controller
+               'mapped' => false,
+               'attr' => ['autocomplete' => 'new-password'],
+               'constraints' => [
+                   new NotBlank([
+                       'message' => 'Please enter a password',
+                   ]),
+                   new Length([
+                       'min' => 6,
+                       'minMessage' => 'Your password should be at least {{ limit }} characters',
+                       // max length allowed by Symfony for security reasons
+                       'max' => 4096,
+                   ]),
+               ],
+           ])
+       ;
+   }
+  </pre>
 
   <script src="script.js"></script>
   <script src="https://replit.com/public/js/replit-badge-v2.js" theme="dark" position="bottom-right"></script>
